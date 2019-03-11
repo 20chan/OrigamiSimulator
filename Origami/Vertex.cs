@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Origami.Math;
 
 namespace Origami {
     public readonly struct Vertex {

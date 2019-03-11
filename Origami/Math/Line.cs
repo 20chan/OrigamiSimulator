@@ -7,12 +7,12 @@ namespace Origami.Math {
         public float Grad { get; }
         public float Yint { get; }
 
-        private Line(float grad, float yint) {
+        protected Line(float grad, float yint) {
             Grad = grad;
             Yint = yint;
         }
 
-        public static Line FromTwoPoint(Vertex p1, Vertex p2) {
+        public static Line FromTwoPoints(Vertex p1, Vertex p2) {
             var grad = (p2.Y - p1.Y) / (p2.X - p1.X);
             var yint = p1.Y - grad * p1.X;
 
