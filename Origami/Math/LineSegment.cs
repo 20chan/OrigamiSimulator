@@ -18,10 +18,10 @@ namespace Origami.Math {
         private static float yint(Vertex p1, Vertex p2)
             => p1.Y - grad(p1, p2) * p1.X;
 
-        public static LineSegment FromTwoPoints(Vertex p1, Vertex p2)
+        public static new LineSegment FromTwoPoints(Vertex p1, Vertex p2)
             => new LineSegment(p1, p2);
 
         public float Length
-            => P1.Distance(P2);
+            => (float)P1.Distance(P2);
     }
 }

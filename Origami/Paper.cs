@@ -7,12 +7,12 @@ namespace Origami {
 
         public Paper() {
             _layers = new List<Face>() {
-                new Face(new LinkedList<Vertex>(new[] {
+                new Face(new List<Vertex>() {
                 new Vertex(0, 0),
                 new Vertex(0, 1),
                 new Vertex(1, 1),
                 new Vertex(1, 0),
-            }))};
+            })};
         }
 
 
