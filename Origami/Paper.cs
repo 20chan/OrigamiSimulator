@@ -3,6 +3,7 @@ using Origami.Math;
 
 namespace Origami {
     public partial class Paper {
+        public IReadOnlyList<Face> Layers => _layers;
         private List<Face> _layers;
 
         public Paper() {

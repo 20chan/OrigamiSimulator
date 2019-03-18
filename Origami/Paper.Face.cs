@@ -5,11 +5,15 @@ using System.Text;
 
 namespace Origami {
     public partial class Paper {
-        private class Face {
-            public List<Vertex> Vertices;
+        /// <summary>
+        /// 종이의 왼쪽 아래가 원점
+        /// </summary>
+        public class Face {
+            public IReadOnlyList<Vertex> Vertices => _vertices;
+            private List<Vertex> _vertices;
 
             public Face(List<Vertex> vertices) {
-                Vertices = vertices;
+                _vertices = vertices;
             }
 
             public bool TryFold(Line mark, Vertex origVertex, out Face newFace) {
@@ -20,16 +24,16 @@ namespace Origami {
                 // 첫번째 접점과 두번쨰 접점을 잇고 사이의 모든 vertices 는 markLine 에 반전시켜
                 // 새로운 Face로 만들어 리턴하면 된다
                 var newVertices = new List<Vertex> {
-                    Vertices[0]
+                    _vertices[0]
                 };
 
-                var prev = Vertices[0];
+                var prev = _vertices[0];
                 var lastIntersectIdx = -1;
                 var lastIntersection = default(Vertex);
                 var isIntersected = false;
 
-                for (int i = 1, counter = 1; counter < Vertices.Count; counter++) {
-                    var v = Vertices[i];
+                for (int i = 1, counter = 1; counter < _vertices.Count; counter++) {
+                    var v = _vertices[i];
 
                     var curLine = LineSegment.FromTwoPoints(prev, v);
 
@@ -53,7 +57,7 @@ namespace Origami {
                     i++;
                 }
 
-                Vertices = newVertices;
+                _vertices = newVertices;
                 // 일단 newFace는 패스 ㅎ
                 newFace = null;
                 return false;
