@@ -13,6 +13,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\cirno\cirno\cirno.csproj" />
       <ProjectReference Include="..\Origami\Origami.csproj" />
     </ItemGroup>
 
