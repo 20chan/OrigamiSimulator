@@ -15,7 +15,7 @@ namespace Origami {
                 _vertices = vertices;
             }
 
-            public bool TryFold(Line mark, Vector origVector, out Face newFace) {
+            public bool TryFold(Line mark, out Face newFace) {
                 // TODO: face 전체가 접히는 경우는 어떡하지?
                 // 파라미터로 이쪽으로 접는거야 하고 방향을 알려줘야 한다
 

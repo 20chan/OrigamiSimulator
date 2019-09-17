@@ -18,12 +18,16 @@ namespace Origami {
             })};
         }
 
-        /// <summary>Always fold left side of line to right side</summary>
         public void Fold(Vector from, Vector to) {
             var foldMark = Perpendicular(new Line(from, to));
+            FoldFromMark(foldMark);
+        }
+
+        /// <summary>Always fold left side of line to right side</summary>
+        public void FoldFromMark(Line mark) {
             for (int i = 0, counter = 0; i < _layers.Count; counter++) {
                 var cur = _layers[i];
-                if (cur.TryFold(foldMark, from, out var newFace)) {
+                if (cur.TryFold(mark, out var newFace)) {
                     _layers.Insert(++i, newFace);
                 }
 

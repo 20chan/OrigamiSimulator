@@ -1,57 +1,109 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using cirno;
-using V = cirno.Vector;
+using static cirno.Tests.Geometry.GeometryTestHelper;
 
 namespace Origami.Tests {
     [TestClass]
     public class PaperTest {
-        [TestMethod, TestCategory("Fold")]
+        [TestMethod]
         public void TestFoldHalf() {
             var paper = new Paper();
-            paper.Fold(new V(0, 0), new V(1, 1));
+            paper.Fold(V(0, 1), V(1, 0));
+            AssertHalf(paper);
 
-            Assert.AreEqual(2, paper.Layers.Count);
+            paper = new Paper();
+            paper.FoldFromMark(L(0, 0, 1, 1));
+            AssertHalf(paper);
 
-            var l0 = paper.Layers[0];
-            var l1 = paper.Layers[1];
+            void AssertHalf(Paper p) {
+                Assert.AreEqual(2, p.Layers.Count);
 
-            var s0 = new HashSet<Vector>(l0.Vertices);
-            var s1 = new HashSet<Vector>(l1.Vertices);
+                var l0 = p.Layers[0];
+                var l1 = p.Layers[1];
 
-            var expected = new[] {new V(0, 0), new V(1, 1), new V(1, 0)};
+                var s0 = new HashSet<Vector>(l0.Vertices);
+                var s1 = new HashSet<Vector>(l1.Vertices);
 
-            Assert.IsTrue(s0.SetEquals(expected));
-            Assert.IsTrue(s1.SetEquals(expected));
+                var expected = new[] { V(0, 0), V(1, 1), V(1, 0) };
+
+                Assert.IsTrue(s0.SetEquals(expected));
+                Assert.IsTrue(s1.SetEquals(expected));
+            }
         }
 
-        [TestMethod, TestCategory("Fold")]
+        [TestMethod]
         public void TestFoldQuarter() {
             var paper = new Paper();
-            paper.Fold(new V(1, 0.5f), new V(0, 0));
+            paper.Fold(V(1, 0f), V(0.6f, 0.8f));
+            AssertQuarter(paper);
 
-            Assert.AreEqual(2, paper.Layers.Count);
+            paper = new Paper();
+            paper.FoldFromMark(L(1, 0.5f, 0, 0));
+            AssertQuarter(paper);
 
-            var l0 = paper.Layers[0];
-            var l1 = paper.Layers[1];
+            void AssertQuarter(Paper p) {
 
-            var s0 = new HashSet<Vector>(l0.Vertices);
-            var s1 = new HashSet<Vector>(l1.Vertices);
+                Assert.AreEqual(2, p.Layers.Count);
 
-            var expected0 = new[] {
-                new V(0, 0),
-                new V(0, 1),
-                new V(1, 1),
-                new V(1, 0.5f),
-            };
-            var expected1 = new[] {
-                new V(0, 0),
-                new V(0.6f, 0.8f),
-                new V(1, 0.5f),
-            };
+                var l0 = p.Layers[0];
+                var l1 = p.Layers[1];
 
-            Assert.IsTrue(s0.SetEquals(expected0));
-            Assert.IsTrue(s1.SetEquals(expected1));
+                var s0 = new HashSet<Vector>(l0.Vertices);
+                var s1 = new HashSet<Vector>(l1.Vertices);
+
+                var expected0 = new[] {
+                    V(0, 0),
+                    V(0, 1),
+                    V(1, 1),
+                    V(1, 0.5f),
+                };
+                var expected1 = new[] {
+                    V(0, 0),
+                    V(0.6f, 0.8f),
+                    V(1, 0.5f),
+                };
+
+                Assert.IsTrue(s0.SetEquals(expected0));
+                Assert.IsTrue(s1.SetEquals(expected1));
+            }
+        }
+
+        [TestMethod]
+        public void TestFoldEighth() {
+            var paper = new Paper();
+            paper.Fold(V(0, 0), V(0.5f, 0.5f));
+            AssertEighth(paper);
+
+            paper = new Paper();
+            paper.FoldFromMark(L(0.5f, 0, 0, 0.5f));
+            AssertEighth(paper);
+
+            void AssertEighth(Paper p) {
+                Assert.AreEqual(2, p.Layers.Count);
+
+                var l0 = p.Layers[0];
+                var l1 = p.Layers[1];
+
+                var s0 = new HashSet<Vector>(l0.Vertices);
+                var s1 = new HashSet<Vector>(l1.Vertices);
+
+                var expected0 = new[] {
+                    V(0.5f, 0),
+                    V(1, 0),
+                    V(1, 1),
+                    V(1, 0),
+                    V(0.5f, 0),
+                };
+                var expected1 = new[] {
+                    V(0.5f, 0),
+                    V(0.5f, 0.5f),
+                    V(0, 0.5f),
+                };
+
+                Assert.IsTrue(s0.SetEquals(expected0));
+                Assert.IsTrue(s1.SetEquals(expected1));
+            }
         }
     }
 }
