@@ -19,7 +19,7 @@ namespace Origami.Tests {
             var s0 = new HashSet<Vector>(l0.Vertices);
             var s1 = new HashSet<Vector>(l1.Vertices);
 
-            var expected = new[] {new V(1, 0), new V(1, 1), new V(0, 1)};
+            var expected = new[] {new V(0, 0), new V(1, 1), new V(1, 0)};
 
             Assert.IsTrue(s0.SetEquals(expected));
             Assert.IsTrue(s1.SetEquals(expected));
@@ -28,7 +28,7 @@ namespace Origami.Tests {
         [TestMethod, TestCategory("Fold")]
         public void TestFoldQuarter() {
             var paper = new Paper();
-            paper.Fold(new V(0, 0), new V(0.5f, 0.5f));
+            paper.Fold(new V(1, 0.5f), new V(0, 0));
 
             Assert.AreEqual(2, paper.Layers.Count);
 
@@ -39,16 +39,15 @@ namespace Origami.Tests {
             var s1 = new HashSet<Vector>(l1.Vertices);
 
             var expected0 = new[] {
-                new V(0.5f, 0),
-                new V(1, 0),
+                new V(0, 0),
+                new V(0, 1),
                 new V(1, 1),
-                new V(1, 0),
-                new V(0.5f, 0),
+                new V(1, 0.5f),
             };
             var expected1 = new[] {
-                new V(0.5f, 0),
-                new V(0.5f, 0.5f),
-                new V(0, 0.5f),
+                new V(0, 0),
+                new V(0.6f, 0.8f),
+                new V(1, 0.5f),
             };
 
             Assert.IsTrue(s0.SetEquals(expected0));

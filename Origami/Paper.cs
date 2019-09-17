@@ -18,7 +18,7 @@ namespace Origami {
             })};
         }
 
-
+        /// <summary>Always fold left side of line to right side</summary>
         public void Fold(Vector from, Vector to) {
             var foldMark = Perpendicular(new Line(from, to));
             for (int i = 0, counter = 0; i < _layers.Count; counter++) {
